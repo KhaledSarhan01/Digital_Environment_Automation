@@ -1,82 +1,164 @@
-###########################################################################################################
-#            ** Digital Design Environment Setup Application **
-# ** Overview:
-#   The idea behind this python script is to automate the setup of Digital
-# IC Design and verification Environment since it was noticed that the setup
-# operation is repetitive and straight forward and I see this Python app as
-# Good practicing on real life application that can be useful for my development.
-#
-# ** Main Features
-#   --> Setting up a "Design" Folder that contains
-#       - Design Module with given "module_name.sv" contain the basic module features
-#           . Basic Module Features:
-#                 module <module_name> #(//write your parameters here)
-#                 (// write your interface here);
-#                       // Start your code here
-#                 endmodule
-#   --> Setting up a "Verification" Folder that contains
-#       - "top.sv" module which contain the basic testbench component
-#           . Basic Testbench Features:
-#               module tb_<module_name>;
-#                   // Add your Signals and Variables here
-#                       bit tb_clock;
-#                       // add DUT interface Signals here
-#                   // DUT Instantiation
-#                       <module_name> DUT
-#                       (// connect DUT interface Signals with Testbench Signals);
-#                   // Clock Generation
-#                       localparm Clock_Period = 1;
-#                       always #(Clock_Period/2) tb_clock =~ tb_clock;
-#                       initial tb_clock = 1'b0;
-#                   // Testcases
-#                       initial begin
-#                           // write your Testcases here
-#                           // End Testbench
-#                               #10; $stop;
-#                       end
-#               endmodule
-#   --> Setting up "Simulation" Folder that contains
-#       - "sourcfile.txt" contains all folders names that was created by the script.
-#       - "start.do" contains script for the questasim to start build up environment.
-#       - "reset.do" contains script for the questasim to rebuild the environment during debugging.
-#       - "done.do"  contains script for the questasim to finish the environment safely.
-############################################################################################################
-import argparse
 import os
+import string
 
-# ######################## Main Functions ########################
-# def create_folder(folder_name):
-#     """Creates a folder"""
-#     os.makedirs(folder_name, exist_ok=True)
-#     print(f"Folder '{folder_name}' created successfully!")
-#
-#
-# def create_file(folder_name, file_name):
-#     """Creates a file inside a specified folder"""
-#     os.makedirs(folder_name, exist_ok=True)
-#     file_path = os.path.join(folder_name, file_name)
-#     with open(file_path, 'w') as f:
-#         f.write("")
-#     print(f"File '{file_path}' created successfully!")
-#
-#
-# def Design_Folder():
-#     create_folder("Design")
-#
+#####################################################
+######## Step 1: Creating the project Folder ########
+#####################################################
+project_name   = "example"
+testbench_name = f"tb_{project_name}"
+os.makedirs(project_name, exist_ok=True)
+#####################################################
+######## Step 2: Creating the Design Folder #########
+#####################################################
 
-###################### Application Interfacing #####################
-# parser = argparse.ArgumentParser(description="Create folders and files")
-# parser.add_argument("command", choices=["create_folder", "create_file"], help="Command to execute")
-# parser.add_argument("folder_name", help="Folder name")
-# parser.add_argument("file_name", nargs="?", help="File name (required for create_file)")
-#
-# args = parser.parse_args()
-#
-# if args.command == "create_folder":
-#     create_folder(args.folder_name)
-# elif args.command == "create_file":
-#     if not args.file_name:
-#         print("Error: You must provide a file name for 'create_file'.")
-#     else:
-#         create_file(args.folder_name, args.file_name)
+# Step 2.1: Folder Creation
+design_folder = os.path.join(project_name, "Design")
+os.makedirs(design_folder, exist_ok=True)
+
+# Step 2.2: Content
+design_file_template = string.Template("""module $project_name (
+// Clock and active low Asynchronous Reset
+    input logic clk,rst_n 
+// Signals    
+    //,
+);
+// Enter your code here
+endmodule
+""")
+
+# Step 2.3: Create a SystemVerilog file in 'Design'
+design_file_path = os.path.join(design_folder, f"{project_name}.sv")
+with open(design_file_path, "w") as f:
+    f.write(design_file_template.substitute(project_name = project_name))
+
+#####################################################
+##### Step 3: Creating the Simulation Folder ########
+#####################################################
+
+# Step 3.1: Folder Creation
+simulation_folder = os.path.join(project_name, "Simulation")
+os.makedirs(simulation_folder, exist_ok=True)
+# Step 3.2: Content
+start_do_text = string.Template("""
+vlib work
+vlog -f sourcefile.txt -svinputport=relaxed
+vsim -voptargs=+acc work.$testbench_name
+do wave.do
+run -all
+""")
+
+reset_do_text = string.Template("""
+vlog -f sourcefile.txt -svinputport=relaxed
+restart -force
+run -all
+""")
+
+done_do_text = string.Template("""
+quit -sim
+exit -force
+""")
+
+wave_do_text = string.Template("""
+delete wave *
+add wave *
+""")
+
+sourcefile_text = string.Template("""
+../Design/$project_name.sv
+../Testbench/$testbench_name.sv
+""")
+# Step 3.3: Create .do files and one .txt file in 'Simulation'
+filepath = os.path.join(simulation_folder, "sourcefile.txt")
+with open(filepath, "w") as f:
+    f.write(sourcefile_text.substitute(testbench_name = testbench_name,project_name = project_name))
+
+filepath = os.path.join(simulation_folder, "start.do")
+with open(filepath, "w") as f:
+    f.write(start_do_text.substitute(testbench_name = testbench_name))
+
+filepath = os.path.join(simulation_folder, "reset.do")
+with open(filepath, "w") as f:
+    f.write(reset_do_text.template)
+
+filepath = os.path.join(simulation_folder, "done.do")
+with open(filepath, "w") as f:
+    f.write(done_do_text.template)
+
+filepath = os.path.join(simulation_folder, "wave.do")
+with open(filepath, "w") as f:
+    f.write(wave_do_text.template)
+
+#####################################################
+####### Step 4: Creating the Testbench Folder #######
+#####################################################
+
+# Step 4.1: Folder Creation
+testbench_folder = os.path.join(project_name, "Testbench")
+os.makedirs(testbench_folder, exist_ok=True)
+# Step 4.2: Content
+testbench_text = string.Template("""
+module $testbench_name ;
+//////////////////////////////////////
+////////////// Signals //////////////
+////////////////////////////////////
+    logic clk,rst_n;
+
+//////////////////////////////////////
+///////// Clock Generation //////////
+////////////////////////////////////
+    localparam CLK_PERIOD = 10;
+    initial begin
+        clk = 1'b0;
+        forever #(CLK_PERIOD/2) clk = ~clk;
+    end
+    
+//////////////////////////////////////
+/////////// Instantiation ///////////
+////////////////////////////////////
+    $project_name DUT (.*);
+
+//////////////////////////////////////
+////////// Testbench Core ///////////
+////////////////////////////////////
+
+// Core
+    initial begin
+        Initialization();
+        Reset();
+        Main_Scenario();
+        Finish();
+    end
+    
+    task Reset;
+        rst_n = 1'b0;
+        @(negedge clk);
+        rst_n = 1'b1;
+    endtask
+    
+    task Finish;
+        repeat(100) @(negedge clk);
+        $$stop;
+    endtask
+// Watch dog works after 10 ms in simulation time 
+    initial begin
+        #1000000;
+        $$display("Simulation is not working");
+        $$stop; 
+    end  
+
+//////////////////////////////////////
+//////// Testbench Scenarios ////////
+////////////////////////////////////
+    task Initialization;
+        // Initialize your Signals Here
+    endtask
+    task Main_Scenario();
+        // Write your Test Scenario Here
+    endtask
+endmodule
+""")
+# Step 4.3: Create testbench.sv in 'Testbench'
+testbench_file_path = os.path.join(testbench_folder, f"{testbench_name}.sv")
+with open(testbench_file_path, "w") as f:
+    f.write(testbench_text.substitute(testbench_name = testbench_name,project_name = project_name))
 
