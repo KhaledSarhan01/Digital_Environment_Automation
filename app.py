@@ -1,12 +1,22 @@
 import os
 import string
+import subprocess
 
 #####################################################
 ######## Step 1: Creating the project Folder ########
 #####################################################
+# project_name   = input("Enter Project Name")
 project_name   = "example"
+current_directory = os.getcwd()
 testbench_name = f"tb_{project_name}"
+
+# Step 1.1: Making the Folder
+project_folder = os.path.join(current_directory, project_name)
 os.makedirs(project_name, exist_ok=True)
+# Step 1.2: Initiating the Git Repo
+os.chdir(project_folder)
+subprocess.run(["git", "init"], check=True)
+
 #####################################################
 ######## Step 2: Creating the Design Folder #########
 #####################################################
@@ -162,3 +172,9 @@ testbench_file_path = os.path.join(testbench_folder, f"{testbench_name}.sv")
 with open(testbench_file_path, "w") as f:
     f.write(testbench_text.substitute(testbench_name = testbench_name,project_name = project_name))
 
+#####################################################
+########### Step 5: Commiting First Commit ##########
+#####################################################
+os.chdir(project_folder)
+subprocess.run(["git", "add","--all"], check=True)
+subprocess.run(["git", "commit",f"-m\"Environment Setup for {project_name} Project\""], check=True)
