@@ -1,12 +1,14 @@
 import os
 import string
-
+import subprocess
 #####################################################
 ######## Step 1: Creating the project Folder ########
 #####################################################
-project_name   = "example"
+# project_name   = input("Write Project Name:")
+project_name = "example"
 testbench_name = f"tb_{project_name}"
 os.makedirs(project_name, exist_ok=True)
+subprocess.run(["git","init"])
 #####################################################
 ######## Step 2: Creating the Design Folder #########
 #####################################################
@@ -162,3 +164,8 @@ testbench_file_path = os.path.join(testbench_folder, f"{testbench_name}.sv")
 with open(testbench_file_path, "w") as f:
     f.write(testbench_text.substitute(testbench_name = testbench_name,project_name = project_name))
 
+#####################################################
+########### Step 5: Commiting the Changes ###########
+#####################################################
+subprocess.run(["git","add","--all"])
+subprocess.run(["git","commit","-m\"first_commit\""])
