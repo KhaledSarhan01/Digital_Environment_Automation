@@ -1,0 +1,8 @@
+Name: Example2
+Signals:
+header_bus   input  32 0
+header_valid input  32 0
+data_bus     input  32 0
+data_valid   input  32 0
+code_bus     output 32
+code_valid   output 32
