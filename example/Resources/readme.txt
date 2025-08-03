@@ -1,0 +1,31 @@
+{
+"Name": "Example",
+"Signals":[
+{"name":        "header_bus",
+ "direction":   "input",
+ "width":       32, 
+ "init":      0},
+{"name":        "header_valid",
+ "direction":   "input"},
+{"name":        "data_bus",
+ "direction":   "input",
+ "width":       32, 
+ "init":      0},
+{"name":        "data_valid",
+ "direction":   "input",
+ "width":       1, 
+ "init":      0},
+{"name":        "header_bus",
+ "direction":   "input",
+ "width":       32, 
+ "init":      0},
+{"name":        "code_bus",
+ "direction":   "output",
+ "width":       32,
+ "init":      0},
+{"name":        "code_valid",
+ "direction":   "output",
+ "width":       1,
+ "init":      0}
+]
+}

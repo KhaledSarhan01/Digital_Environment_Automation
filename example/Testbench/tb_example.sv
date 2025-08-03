@@ -1,10 +1,21 @@
+////////////////////////////////////////////////
+///// Project   : Example             
+///// Created on: 2025-08-03
+///// Version   : 1.2                   
+////////////////////////////////////////////////
 
-module tb_example ;
+module tb_Example ;
 //////////////////////////////////////
 ////////////// Signals //////////////
 ////////////////////////////////////
     logic clk,rst_n;
-
+    logic [31:0]  i_header_bus;
+ 	logic  i_header_valid;
+ 	logic [31:0]  i_data_bus;
+ 	logic  i_data_valid;
+ 	logic [31:0]  i_header_bus;
+ 	logic [31:0]  o_code_bus;
+ 	logic  o_code_valid;
 //////////////////////////////////////
 ///////// Clock Generation //////////
 ////////////////////////////////////
@@ -17,7 +28,7 @@ module tb_example ;
 //////////////////////////////////////
 /////////// Instantiation ///////////
 ////////////////////////////////////
-    example DUT (.*);
+    Example DUT (.*);
 
 //////////////////////////////////////
 ////////// Testbench Core ///////////
@@ -53,6 +64,11 @@ module tb_example ;
 ////////////////////////////////////
     task Initialization;
         // Initialize your Signals Here
+         i_header_bus = 'h0;
+ 	 	 i_header_valid = 'h0;
+ 	 	 i_data_bus = 'h0;
+ 	 	 i_data_valid = 'h0;
+ 	 	 i_header_bus = 'h0;
     endtask
     task Main_Scenario();
         // Write your Test Scenario Here
