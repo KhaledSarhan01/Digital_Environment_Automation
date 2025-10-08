@@ -3,6 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/example" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/mipi_top" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/spi_slave" vcs="Git" />
   </component>
 </project>

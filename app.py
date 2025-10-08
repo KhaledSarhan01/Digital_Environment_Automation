@@ -194,8 +194,8 @@ add wave *
 """)
 
 sourcefile_text = string.Template("""
-../Design/$project_name.sv
-../Testbench/$testbench_name.sv
+../rtl/$project_name.sv
+../testbench/$testbench_name.sv
 """)
 # Step 3.3: Create .do files and one .txt file in 'Simulation'
 filepath = os.path.join(simulation_folder, "sourcefile.txt")

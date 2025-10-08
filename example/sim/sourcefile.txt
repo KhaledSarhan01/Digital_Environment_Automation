@@ -1,0 +1,3 @@
+
+../rtl/Example.sv
+../testbench/tb_Example.sv

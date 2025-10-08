@@ -1,0 +1,3 @@
+
+delete wave *
+add wave *
