@@ -3,7 +3,7 @@ import string
 import subprocess
 from datetime import date
 import json
-Version = "1.2"
+Version = "1.3"
 #####################################################
 ######## Step 0: Project Class and Functions ########
 #####################################################
@@ -121,8 +121,7 @@ testbench_name = f"tb_{project_name}"
 today = date.today()
 header = f"""////////////////////////////////////////////////
 ///// Project   : {project_name}             
-///// Created on: {today}
-///// Version   : {Version}                   
+///// Created on: {today}                   
 ////////////////////////////////////////////////
 """
 # Step 1.1: Making the Folder
@@ -137,7 +136,7 @@ subprocess.run(["git", "init"], check=True)
 #####################################################
 
 # Step 2.1: Folder Creation
-design_folder = os.path.join(project_folder, "Design")
+design_folder = os.path.join(project_folder, "rtl")
 os.makedirs(design_folder, exist_ok=True)
 
 # Step 2.2: Content
@@ -167,7 +166,7 @@ with open(design_file_path, "w") as f:
 #####################################################
 
 # Step 3.1: Folder Creation
-simulation_folder = os.path.join(project_folder, "Simulation")
+simulation_folder = os.path.join(project_folder, "sim")
 os.makedirs(simulation_folder, exist_ok=True)
 # Step 3.2: Content
 start_do_text = string.Template("""
@@ -224,7 +223,7 @@ with open(filepath, "w") as f:
 #####################################################
 
 # Step 4.1: Folder Creation
-testbench_folder = os.path.join(project_folder, "Testbench")
+testbench_folder = os.path.join(project_folder, "testbench")
 os.makedirs(testbench_folder, exist_ok=True)
 # Step 4.2: Content
 testbench_text = string.Template("""$header
@@ -302,7 +301,7 @@ with open(testbench_file_path, "w") as f:
 ############## Step 5: Resources Folder #############
 #####################################################
 # Step 5.1: Folder Creation
-resource_folder = os.path.join(project_folder, "Resources")
+resource_folder = os.path.join(project_folder, "docs")
 os.makedirs(resource_folder, exist_ok=True)
 # Step 5.2: Create readme.txt in 'Resources'
 readme_file_path = os.path.join(resource_folder, f"readme.txt")
