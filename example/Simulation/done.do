@@ -1,3 +1,0 @@
-
-quit -sim
-exit -force

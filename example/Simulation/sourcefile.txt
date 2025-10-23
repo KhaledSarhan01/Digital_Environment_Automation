@@ -1,3 +1,0 @@
-
-../Design/Example.sv
-../Testbench/tb_Example.sv
