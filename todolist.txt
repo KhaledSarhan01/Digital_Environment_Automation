@@ -1,0 +1,78 @@
+=======================================
+ DIGITAL IC PROJECT ENVIRONMENT BUILDER
+=======================================
+
+PHASE 1 — CORE FOUNDATION
+-------------------------
+[ ] Create project structure:
+    - main.py
+    - core.py
+    - parsers.py
+    - generators.py
+    - templates/
+
+[ ] Implement core classes in core.py:
+    - Signal
+    - Module
+    - Project
+    - BaseGenerator (abstract)
+
+[ ] Implement JSON parser in parsers.py:
+    - Read .json entity file
+    - Create Project and Module objects
+    - Create Signal objects
+    - Attach base generators (RTL, Testbench)
+
+[ ] Implement base generators in generators.py:
+    - RTLGenerator → Design/<module>.sv
+    - TestbenchGenerator → Testbench/tb_<module>.sv
+
+[ ] Add basic templates in templates/ folder
+
+[ ] Test full flow using one sample .json entity file
+
+
+PHASE 2 — SIMULATION SUPPORT
+----------------------------
+[ ] Add SimulationGenerator class
+[ ] Generate Simulation folder with:
+    - start.do
+    - reset.do
+    - wave.do
+    - done.do
+    - sourcefile.txt
+[ ] Add default .do templates
+[ ] Test on QuestaSim or ModelSim
+
+
+PHASE 3 — SYNTHESIS & FORMAL SUPPORT
+------------------------------------
+[ ] Add SynthesisGenerator (Vivado / Design Compiler)
+[ ] Add FormalGenerator (Jasper / VC Formal)
+[ ] Create TCL templates for each flow
+[ ] Generate Synthesis/ and Formal/ folders
+
+
+PHASE 4 — SUBMODULE SUPPORT
+----------------------------
+[ ] Update JSON structure to include "SubModules"
+[ ] Parse submodules recursively
+[ ] Generate RTL/Testbench for each submodule
+[ ] Support hierarchical instantiation
+
+
+PHASE 5 — CONFIG & CUSTOMIZATION
+--------------------------------
+[ ] Add config.json or YAML for global settings
+[ ] Support multiple vendors (Questa, VCS, Vivado)
+[ ] Allow user to select vendor via CLI
+
+
+PHASE 6 — AUTOMATION & POLISH
+-----------------------------
+[ ] Implement CLI using argparse
+[ ] Add git initialization and first commit
+[ ] Add readme auto-generation in Resources/
+[ ] Package tool as pip-installable module
+[ ] Write simple usage documentation
+
