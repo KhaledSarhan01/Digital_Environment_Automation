@@ -67,7 +67,7 @@ Example
 | |- tb_Example.do
 ```
 ## Versions
-> Current Version: 1.3
+> Current Version: 1.4
 ### Latest Features 
 * JSON file can be passed into script instead of txt file.
 * improved Header in Design and testbench file.
@@ -81,8 +81,9 @@ Example
 * version 1.1: add improvements to script
 * version 1.2: use .json File instead of .txt file as Entity file.
 * version 1.3: some folder names are edited.
-* version 1.3: add more scripts for synthesis and linting.
-* version 1.4: improve the code maintainability and scalability for future improvements.
+* version 1.4: add .gitignore file.
+* version 1.5: add more scripts for synthesis and linting.
+* version 1.6: improve the code maintainability and scalability for future improvements.
 ## Version 2.0
 * version 2.0: Use UVM Environment instead of SystemVerilog Testbench.
 * version 2.1: handling multiple level project.

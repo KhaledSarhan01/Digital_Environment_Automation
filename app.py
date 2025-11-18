@@ -130,7 +130,15 @@ os.makedirs(project_folder, exist_ok=True)
 # Step 1.2: Initiating the Git Repo
 os.chdir(project_folder)
 subprocess.run(["git", "init"], check=True)
-
+# Step 1.3: generate Git Ignore file
+current_file_path = os.path.join(project_folder, ".gitignore")
+git_ignore_template = f"""sim/*.mpf
+sim/*.mti
+sim/*.wlf
+sim/work
+"""
+with open(current_file_path, "w") as f:
+    f.write(git_ignore_template)
 #####################################################
 ######## Step 2: Creating the Design Folder #########
 #####################################################
