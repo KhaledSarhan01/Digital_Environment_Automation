@@ -1,0 +1,3 @@
+
+../rtl/$module_name.sv
+../testbench/$tb_name.sv

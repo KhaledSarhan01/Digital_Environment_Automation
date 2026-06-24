@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+.cursor/
+.venv/
+.pytest_cache/
+.pytest_cache/
+development/__pycache__/

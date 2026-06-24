@@ -1,19 +1,10 @@
-////////////////////////////////////////////////
-///// Project   : Example
-///// Created on: 2026-06-24
-////////////////////////////////////////////////
-
-module tb_Example ;
+$header
+module $tb_name ;
 //////////////////////////////////////
 ////////////// Signals //////////////
 ////////////////////////////////////
     logic clk,rst_n;
-    logic [31:0] i_header_bus;
- 	logic i_header_valid;
- 	logic [31:0] i_data_bus;
- 	logic i_data_valid;
- 	logic [31:0] o_code_bus;
- 	logic o_code_valid;
+    $signals_list
 //////////////////////////////////////
 ///////// Clock Generation //////////
 ////////////////////////////////////
@@ -26,7 +17,7 @@ module tb_Example ;
 //////////////////////////////////////
 /////////// Instantiation ///////////
 ////////////////////////////////////
-    Example DUT (.*);
+    $module_name DUT (.*);
 
 //////////////////////////////////////
 ////////// Testbench Core ///////////
@@ -46,23 +37,20 @@ module tb_Example ;
 
     task Finish;
         repeat(100) @(negedge clk);
-        $stop;
+        $$stop;
     endtask
 
     initial begin
         #1000000;
-        $display("Simulation is not working");
-        $stop;
+        $$display("Simulation is not working");
+        $$stop;
     end
 
 //////////////////////////////////////
 //////// Testbench Scenarios ////////
 ////////////////////////////////////
     task Initialization;
-         i_header_bus = 'h0;
- 	 	 i_header_valid = 'h0;
- 	 	 i_data_bus = 'h0;
- 	 	 i_data_valid = 'h0;
+        $init_list
     endtask
     task Main_Scenario();
     endtask

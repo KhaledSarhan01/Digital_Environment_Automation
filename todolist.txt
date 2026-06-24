@@ -5,11 +5,11 @@
 PHASE 1 — CORE FOUNDATION
 -------------------------
 [ ] Create project structure:
-    - main.py
-    - core.py
-    - parsers.py
-    - generators.py
-    - templates/
+    - main.py                    (repo root — entry point)
+    - development/core.py
+    - development/parsers.py
+    - development/generators.py
+    - development/templates/
 
 [ ] Implement core classes in core.py:
     - Signal
@@ -24,8 +24,8 @@ PHASE 1 — CORE FOUNDATION
     - Attach base generators (RTL, Testbench)
 
 [ ] Implement base generators in generators.py:
-    - RTLGenerator → Design/<module>.sv
-    - TestbenchGenerator → Testbench/tb_<module>.sv
+    - RTLGenerator → rtl/<module>.sv
+    - TestbenchGenerator → testbench/tb_<module>.sv
 
 [ ] Add basic templates in templates/ folder
 

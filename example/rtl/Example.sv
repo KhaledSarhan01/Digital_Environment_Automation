@@ -1,19 +1,18 @@
 ////////////////////////////////////////////////
-///// Project   : Example             
-///// Created on: 2025-11-17                   
+///// Project   : Example
+///// Created on: 2026-06-24
 ////////////////////////////////////////////////
 
 module Example (
 // Clock and active low Asynchronous Reset
-    input logic clk,rst_n 
-// Signals    
-    ,input  logic [31:0]  i_header_bus
- 	,input  logic  i_header_valid
- 	,input  logic [31:0]  i_data_bus
- 	,input  logic  i_data_valid
- 	,input  logic [31:0]  i_header_bus
- 	,output logic [31:0]  o_code_bus
- 	,output logic  o_code_valid
+    input logic clk,rst_n
+// Signals
+    ,input  logic [31:0] i_header_bus
+ 	,input  logic i_header_valid
+ 	,input  logic [31:0] i_data_bus
+ 	,input  logic i_data_valid
+ 	,output logic [31:0] o_code_bus
+ 	,output logic o_code_valid
 );
 // Enter your code here
 // THIS IS DUMMY CODE
